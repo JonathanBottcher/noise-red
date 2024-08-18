@@ -14,19 +14,23 @@ MyApplet.prototype = {
 
 		this.set_applet_icon_name("org.gnome.SoundRecorder");
 		this.set_applet_tooltip(_("Click here to reduce noise"));
-		
-		this.clicked = false
+
+		this.isActive = false;
 
 
 },
-	
+
 	on_applet_clicked: function(){
-		if(this.clicked === false){	
+		if(this.isActive  === false){
 			Util.spawn(['pactl', 'load-module', 'module-echo-cancel']);
-			this.clicked = true
+			this.isActive = true;
+
+		}else if(this.isActive === true){
+			Util.spawn(['pactl', 'unload-module', 'module-echo-cancel'])
+			this.isActive = false;					
+
 		}
 
-		
 
 
 
