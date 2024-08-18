@@ -1,0 +1,12 @@
+{
+       "uuid": "noise-red@cinnamon.org",
+        "name": "Noise Reduction",
+        "description": "Click the applet to execute a pulseaudio command and reduce noise coming from a microphone",
+        "icon": "org.gnome.SoundRecorder",
+        "max-instances": "-1",
+	"author": "Jonathan Bottcher"
+
+
+
+}
+
