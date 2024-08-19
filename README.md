@@ -1,3 +1,5 @@
+Reduce noise coming from your microphone.
+
 ***Usage***\
 Add file to ~/.local/share/cinnamon/applets 
 
