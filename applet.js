@@ -27,7 +27,7 @@ MyApplet.prototype = {
 
 		}else if(this.isActive === true){
 			Util.spawn(['pactl', 'unload-module', 'module-echo-cancel'])
-			this.isActive = false;					
+			this.isActive = false;
 
 		}
 
