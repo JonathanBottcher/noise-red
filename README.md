@@ -4,6 +4,6 @@ Reduce noise coming from your microphone.
 Add file to ~/.local/share/cinnamon/applets 
 
 ***TODO***\
-bugfix: the noise cancellation configuration gets applied automatically, but the user has to set the volume coming from the microphone manually in the sound settings. 
+bugfix:  change the input device's hardcoded value.
 \
 feature: add some visual effect/small icon to be able to tell if the configuration is turned off or turned on.
