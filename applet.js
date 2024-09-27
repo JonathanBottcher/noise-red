@@ -69,8 +69,7 @@ class ReductionSwitch extends PopupMenu.PopupBaseMenuItem {
 
         } else if (active) {
             Util.spawn(['pactl', 'load-module', 'module-echo-cancel']);
-            Util.spawn(['pactl', 'set-default-source',
-                 'alsa_input.usb-Generic_USB2.0_PC_CAMERA-02.mono-fallback.echo-cancel']);// TODO: change hardcoded value
+            Util.spawn(['sh', '.local/share/cinnamon/applets/noise-reduction@cinnamon.org/find_source.sh']); //set echo-cancelled input source as default
 
             
         }
