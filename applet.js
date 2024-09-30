@@ -1,5 +1,6 @@
 const Applet = imports.ui.applet;
 const Gio = imports.gi.Gio;
+const GLib = imports.gi.GLib;
 const Lang = imports.lang;
 const Main = imports.ui.main;
 const St = imports.gi.St;
@@ -64,12 +65,14 @@ class ReductionSwitch extends PopupMenu.PopupBaseMenuItem {
     }
 
     toggled(active) {
+        const homeDir = GLib.get_home_dir();
+        
         if (!active) {
           Util.spawn(['pactl', 'unload-module', 'module-echo-cancel']);
 
         } else if (active) {
             Util.spawn(['pactl', 'load-module', 'module-echo-cancel']);
-            Util.spawn(['sh', '.local/share/cinnamon/applets/noise-reduction@cinnamon.org/find_source.sh']);
+            Util.spawn(['sh', homeDir + '/.local/share/cinnamon/applets/noise-reduction@cinnamon.org/find_source.sh']);
 
             
         }
