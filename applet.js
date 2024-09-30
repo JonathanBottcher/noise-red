@@ -7,7 +7,7 @@ const Tooltips = imports.ui.tooltips;
 const PopupMenu = imports.ui.popupMenu;
 const GnomeSession = imports.misc.gnomeSession;
 const Util = imports.misc.util;
-const Slider = imports.ui.slider
+const Slider = imports.ui.slider;
 
 const VOLUME_ADJUSTMENT_STEP = 0.05;
 
@@ -69,7 +69,7 @@ class ReductionSwitch extends PopupMenu.PopupBaseMenuItem {
 
         } else if (active) {
             Util.spawn(['pactl', 'load-module', 'module-echo-cancel']);
-            Util.spawn(['sh', '.local/share/cinnamon/applets/noise-reduction@cinnamon.org/find_source.sh']); //set echo-cancelled input source as default
+            Util.spawn(['sh', '.local/share/cinnamon/applets/noise-reduction@cinnamon.org/find_source.sh']);
 
             
         }
@@ -78,9 +78,16 @@ class ReductionSwitch extends PopupMenu.PopupBaseMenuItem {
 }
 
 class VolumeSlider extends PopupMenu.PopupSliderMenuItem {
-    constructor(applet) {
+    constructor(applet, tooltip) {
         super(50, 0, 100, VOLUME_ADJUSTMENT_STEP);  // Initial value, min, max, step
         this._applet = applet;
+        if(tooltip)
+            this.tooltipText = tooltip + ": ";
+        else
+            this.tooltipText = "";
+
+        this.tooltip = new Tooltips.Tooltip(this.actor, this.tooltipText);
+
 
         // Connect to value-changed signal
         this.connect('value-changed', this.onSliderValueChanged.bind(this));
@@ -89,6 +96,12 @@ class VolumeSlider extends PopupMenu.PopupSliderMenuItem {
     onSliderValueChanged(slider) {
         let volume = Math.round(slider.value * 100);
         Util.spawn(['pactl', 'set-source-volume', '@DEFAULT_SOURCE@', `${volume}%`]);
+        this.tooltip.set_text(this.tooltipText + volume +  "%");
+        if (this._dragging)
+            this.tooltip.show();
+        if(!this._dragging)
+            this.applet._notifyVolumeChange(this.stream);
+
     }
 }
 
@@ -108,7 +121,7 @@ class NoiseReductionApplet extends Applet.IconApplet {
         this.set_applet_icon_symbolic_name("org.gnome.SoundRecorder");
         this.set_applet_tooltip(_("Noise reduction"));
 
-        this.volumeSlider = new VolumeSlider(this)
+        this.volumeSlider = new VolumeSlider(this,"Volume")
         this.menu.addMenuItem(this.volumeSlider);
 
     }
