@@ -124,7 +124,7 @@ class NoiseReductionApplet extends Applet.IconApplet {
         this.set_applet_icon_symbolic_name("org.gnome.SoundRecorder");
         this.set_applet_tooltip(_("Noise reduction"));
 
-        this.volumeSlider = new VolumeSlider(this,"Volume")
+        this.volumeSlider = new VolumeSlider(this,"Volume");
         this.menu.addMenuItem(this.volumeSlider);
 
     }
